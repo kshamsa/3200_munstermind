@@ -18,6 +18,7 @@ def checkguess():
     guess_list = request.json['guess']
     enigma_list = request.json['enigma']
     print("TEST OUT DATA BELOW HERE/////////////////////////////")
+
     print(guess_list)
     print(enigma_list)
     #Hey student: your code here!!!!
@@ -29,24 +30,36 @@ def checkguess():
     blackPegs = 0 #color exists but its in the wrong index
     index = 0
 
+    print("guess_list")
+    print(guess_list)
+    print("enigma_list")
+    print(enigma_list)
+
     for s in guess:
         if s == enigma[index]:
-            whitePegs = whitePegs + 1
+            blackPegs = blackPegs + 1
             results[index] = "blackPeg"
-        
+
+        print("Loop 1: " + s)
         index = index + 1
     
+    print("\n")
+
     for s in guess:
         if s in enigma_list:
-            if results[enigma_list.index(s)] != "blackPeg":
+            if results[enigma_list.index(s)] == "":
                 results[enigma_list.index(s)] = "whitePeg"
                 whitePegs = whitePegs + 1
+        
+        print("Loop 2: " + s)
 
-    print("whitePegs")
-    print(whitePegs)
-    print("blackPegs")
-    print(blackPegs)           
+    print("Resulting data:")
+    print("whitePegs: " , whitePegs)
+    print("blackPegs: " , blackPegs)
     
+    print("results")
+    print(results)
+
     hint = {'whitePegs':whitePegs, 'blackPegs':blackPegs} #create the hint as a dict
     print("the hint:", hint) #print out the hint to the console
     return jsonify(hint) #return the dict as a json
